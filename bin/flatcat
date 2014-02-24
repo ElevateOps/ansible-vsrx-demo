@@ -1,0 +1,1 @@
+python -c 'import sys; print repr(open(sys.argv[1]).read())' $1 | sed '1s/^.\(.*\).$/\1/'

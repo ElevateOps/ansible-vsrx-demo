@@ -1,1 +1,2 @@
 export ANSIBLE_HOSTS=`pwd`/hosts
+export PATH=$PATH:`pwd`/bin

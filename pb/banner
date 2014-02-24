@@ -1,0 +1,30 @@
+---
+- name: Create Junos Login Banner
+  hosts: 127.0.0.1
+  connection: local
+  gather_facts: no
+  vars:
+    banner_file: ../files/banner
+    banner_template: ../templates/login_message.conf  
+  tasks:
+    - name: loading banner conntent from file 
+      shell: flatcat {{ banner_file }}
+      register: banner
+    - name: creating banner Junos config
+      template: src={{ banner_template }} dest=/var/tmp/banner.conf
+      register: banner_conf
+    - name: stop if banner hasn't changed
+      fail: msg="banner hasn't changed"
+      when: banner_conf.changed == False
+
+- name: Push Config to Devices
+  hosts: all
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: config ...
+      junos_install_config:
+        host={{ inventory_hostname }}
+        file=/var/tmp/banner.conf
+
+
