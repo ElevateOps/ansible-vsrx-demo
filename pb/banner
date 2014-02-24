@@ -4,14 +4,18 @@
   connection: local
   gather_facts: no
   vars:
+    banner_conf: /var/tmp/banner.conf
     banner_file: ../files/banner
     banner_template: ../templates/login_message.conf  
   tasks:
-    - name: loading banner content from file
+    - name: 'remove {{ banner_conf }}'
+      file: path={{banner_conf}} state=absent
+      when: clean is defined
+    - name: 'loading banner content from {{ banner_file }}'
       shell: flatcat {{ banner_file }}
       register: banner
-    - name: creating banner Junos config
-      template: src={{ banner_template }} dest=/var/tmp/banner.conf
+    - name: 'creating Junos conf: {{ banner_conf }}'
+      template: src={{ banner_template }} dest={{ banner_conf }}
       register: banner_conf
     - name: stop if no change
       fail: msg='banner has not changed'
