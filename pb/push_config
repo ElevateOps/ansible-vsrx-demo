@@ -1,0 +1,9 @@
+- name: Push Config to Devices
+  hosts: all
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: 'config ... {{ config_file }}'
+      junos_install_config:
+        host={{ inventory_hostname }}
+        file={{ config_file }}
