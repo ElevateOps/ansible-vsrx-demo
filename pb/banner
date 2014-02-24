@@ -4,7 +4,7 @@
   connection: local
   gather_facts: no
   vars:
-    banner_file: files/banner
+    banner_file: ../files/banner
     banner_template: ../templates/login_message.conf  
   tasks:
     - name: loading banner content from file
