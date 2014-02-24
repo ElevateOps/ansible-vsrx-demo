@@ -1,0 +1,17 @@
+[all:vars]
+logdir=/usr/local/junos/log
+configdir=/usr/local/junos/config
+packagedir=/usr/local/junos/packages
+domainname=jls.net
+
+[vsrx]
+red-vsrx 
+blue-vsrx 
+green-vsrx 
+black-vsrx
+
+[vsrx:vars]
+version=12.1X46-D10.2
+package=junos-vsrx-12.1X46-D10.2-domestic.tgz
+#version=12.1X44-D20.3
+#package=junos-vsrx-12.1X44-D20.3-domestic.tgz

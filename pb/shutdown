@@ -1,0 +1,32 @@
+---
+- name: Shutdown Junos Devices
+  hosts: all
+  connection: local
+  gather_facts: no
+  vars:
+    restart: 'no'
+    restart_wait: 300
+  vars_prompt:
+    - name: shutdown
+      prompt: "Enter shutdown to continue"
+      private: no
+
+  tasks:
+    - include: task_check_nc
+    - name: shutting down ...
+      junos_shutdown: 
+        host={{ inventory_hostname }}    
+        shutdown={{ shutdown }}
+        restart={{ restart }}
+      register: shutdown
+      notify:
+        - wait_reboot
+        - wait_restart
+
+  handlers:
+    - name: wait_reboot
+      pause: seconds=10
+      when: shutdown.restart == True
+    - name: wait_restart
+      wait_for: host={{ inventory_hostname }} port=830 timeout={{ restart_wait }}
+      when: shutdown.restart == True
