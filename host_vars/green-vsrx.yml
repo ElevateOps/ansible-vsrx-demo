@@ -1,0 +1,14 @@
+---
+interfaces:
+  ge-0/0/1:
+    - { vlan: 2200, ip_addr: 10.18.200.12/24 }
+    - { vlan: 2201, ip_addr: 10.18.201.13/24 }
+    - { vlan: 3217, ip_addr: 10.18.107.129/24 }
+
+zones:
+  INSIDE:
+    interfaces: [ 'ge-0/0/1.2200' ]
+  OUTSIDE:
+    interfaces:
+      - ge-0/0/1.2201
+      - ge-0/0/1.3217

@@ -1,0 +1,15 @@
+---
+#OS_version: 12.1X44-D20.3
+#OS_package: junos-vsrx-12.1X44-D20.3-domestic.tgz
+
+interfaces:
+  ge-0/0/1:
+    - { vlan: 100, ip_addr: 10.10.100.2/24 }
+    - { vlan: 101, ip_addr: 10.10.101.3/24 }
+    - { vlan: 207, ip_addr: 10.10.207.19/24 }
+
+zones:
+  DMZ:
+    interfaces: [ 'ge-0/0/1.100', 'ge-0/0/1.101']
+  PCI:
+    interfaces: [ 'ge-0/0/1.207']

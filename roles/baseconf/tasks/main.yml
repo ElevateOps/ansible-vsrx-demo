@@ -1,0 +1,15 @@
+---
+- name: remove host-baseconf
+  file: path={{configdir}}/baseconf/{{inventory_hostname}} state=absent
+  register: baseconfdir
+
+- name: create host-baseconf
+  file: path={{baseconfdir.path}} state=directory
+
+- name: template building config snippets
+  template: src={{ item }} dest={{baseconfdir.path}}/{{ item|basename }}
+  with_fileglob: 
+    - ../templates/*
+
+- name: assembling into final base.conf
+  assemble: src={{ baseconfdir.path }} dest={{ baseconfdir.path}}/base.conf

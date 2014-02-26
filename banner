@@ -1,0 +1,27 @@
+---
+- name: Create Junos Login Banner
+  hosts: 127.0.0.1
+  connection: local
+  gather_facts: no
+  vars:
+    banner_dest: '{{configdir}}/banner.conf'
+    banner_file: ./files/banner.txt
+    banner_template: ./templates/banner.conf  
+  tasks:
+    - name: 'remove {{ banner_dest }}'
+      file: path={{banner_dest}} state=absent
+      when: clean is defined
+    - name: 'loading banner content from {{ banner_file }}'
+      shell: flatcat {{ banner_file }}
+      register: banner
+    - name: 'creating Junos conf: {{ banner_dest }}'
+      template: src={{ banner_template }} dest={{ banner_dest }}
+      register: banner_conf
+
+- include: pb/push_config config_file='{{configdir}}/banner.conf'
+
+
+
+
+
+

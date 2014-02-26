@@ -1,0 +1,13 @@
+---
+interfaces:
+  ge-0/0/1:
+    - { vlan: 200, ip_addr: 10.10.200.12/24 }
+    - { vlan: 201, ip_addr: 10.10.201.13/24 }
+    - { vlan: 307, ip_addr: 10.10.107.129/24 }
+
+zones:
+  DMZ:
+    interfaces:
+      - ge-0/0/1.200
+      - ge-0/0/1.201
+      - ge-0/0/1.307
