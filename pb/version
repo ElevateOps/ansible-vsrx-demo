@@ -5,8 +5,7 @@
   gather_facts: no
 
   tasks:
-    - name: checking NETCONF service
-      wait_for: host={{inventory_hostname}} port=830 timeout=5
+    - include: task_check_nc
     - name: Get Junos Facts
       junos_get_facts:
         host={{ inventory_hostname }}

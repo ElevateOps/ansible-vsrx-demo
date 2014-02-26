@@ -4,7 +4,7 @@ configdir=/usr/local/junos/config
 packagedir=/usr/local/junos/packages
 
 [vsrx]
-red-vsrx 
+red-vsrx fw_role=PCI
 blue-vsrx 
-green-vsrx 
+green-vsrx fw_role=PCI
 black-vsrx
