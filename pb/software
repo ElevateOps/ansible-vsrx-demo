@@ -4,7 +4,6 @@
   connection: local
   gather_facts: no
   vars:
-    reboot_wait_time: 10
     restart_wait_time: 3600
 
   tasks:
@@ -16,13 +15,14 @@
         version={{ OS_version }}
         package={{ packagedir }}/{{ OS_package }}
         logfile={{ logdir }}/software.log
-        reboot=yes
-        reboot_pause={{ reboot_wait_time }}
       register: sw
       notify:
         - Junos wait for restart
 
   handlers:
     - name: Junos wait for restart
-      wait_for: host={{ inventory_hostname }} port=830 timeout={{ restart_wait_time }}
+      wait_for: 
+        host={{ inventory_hostname }} 
+        port={{ PORT_NETCONF }} 
+        timeout={{ restart_wait_time }}
       when: not sw.check_mode      

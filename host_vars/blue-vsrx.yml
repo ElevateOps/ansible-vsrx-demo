@@ -1,4 +1,7 @@
 ---
+#OS_version: 12.1X44-D20.3
+#OS_package: junos-vsrx-12.1X44-D20.3-domestic.tgz
+
 interfaces:
   ge-0/0/1:
     - { vlan: 200, ip_addr: 10.10.200.12/24 }
