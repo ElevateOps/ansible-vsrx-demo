@@ -4,8 +4,8 @@
   connection: local
   gather_facts: no
   vars:
-    restart: 'no'
-    restart_wait: 300
+    reboot: 'no'
+    reboot_wait: 300
   vars_prompt:
     - name: shutdown
       prompt: "Enter shutdown to continue"
@@ -17,16 +17,16 @@
       junos_shutdown: 
         host={{ inventory_hostname }}    
         shutdown={{ shutdown }}
-        restart={{ restart }}
+        reboot={{ reboot }}
       register: shutdown
       notify:
+        - pause_for_reboot
         - wait_reboot
-        - wait_restart
 
   handlers:
-    - name: wait_reboot
+    - name: pause_for_reboot
       pause: seconds=10
-      when: shutdown.restart == True
-    - name: wait_restart
-      wait_for: host={{ inventory_hostname }} port=830 timeout={{ restart_wait }}
-      when: shutdown.restart == True
+      when: shutdown.reboot == True
+    - name: wait_reboot
+      wait_for: host={{ inventory_hostname }} port=830 timeout={{ reboot_wait }}
+      when: shutdown.reboot == True

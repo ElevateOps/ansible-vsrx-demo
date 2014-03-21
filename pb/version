@@ -6,9 +6,10 @@
 
   tasks:
     - include: task_check_nc
+
     - name: Get Junos Facts
-      junos_get_facts:
-        host={{ inventory_hostname }}
+      junos_get_facts: host={{ inventory_hostname }}
       register: junos
+      
     - name: version
       debug: msg="{{ junos.facts.version }}"

@@ -1,7 +1,0 @@
----
-- name: test
-  hosts: 127.0.0.1
-  connection: local
-  tasks:
-    - name: PWD
-      debug: msg="{{ ansible_env.PWD }}"
