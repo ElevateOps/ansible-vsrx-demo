@@ -1,13 +1,13 @@
-- name: Push Config to Devices
+- name: Merge Config to Devices
   hosts: all
   connection: local
   gather_facts: no
   vars:
     timeout: 0
   tasks:
-    - name: 'config ... {{ config_file }}'
+    - name: 'config ... {{ file }}'
       junos_install_config:
         host={{ inventory_hostname }}
-        file={{ config_file }}
+        file={{ file }}
         timeout={{ timeout }}
         logfile={{logdir}}/config.log

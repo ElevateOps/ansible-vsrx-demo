@@ -18,7 +18,7 @@
       template: src={{ banner_template }} dest={{ banner_dest }}
       register: banner_conf
 
-- include: pb/push_config config_file='{{configdir}}/banner.conf'
+- include: pb/merge_config file='{{configdir}}/banner.conf'
 
 
 

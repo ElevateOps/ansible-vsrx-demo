@@ -1,0 +1,14 @@
+- name: Replace Config on Devices
+  hosts: all
+  connection: local
+  gather_facts: no
+  vars:
+    timeout: 0
+  tasks:
+    - name: 'config ... {{ file }}'
+      junos_install_config:
+        host={{ inventory_hostname }}
+        file={{ file }}
+        timeout={{ timeout }}
+        logfile={{logdir}}/config.log
+        overwrite=yes
